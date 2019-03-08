@@ -16,7 +16,6 @@
 
 <script>
 import Autofocus from '@/directives/Autofocus'
-import {post} from '@/utils/fetch';
 export default {
   directives: {
     Autofocus
@@ -31,16 +30,11 @@ export default {
 
   methods: {
     login(email, password) {
-      login({email, password})
-        .then(result => this.$emit('login'))
+      this.$store
+        .dispatch('session/login', {email, password})
+        .then(() => this.$emit('login'))
     }
   }
-}
-
-function login(data = {}) {
-  return post('/api/auth', {
-    body: data
-  })
 }
 </script>
 
