@@ -8,6 +8,8 @@ import {get as getSession} from '@/services/storage'
 Vue.config.productionTip = false
 
 restoreSession()
+  .then(() => router.push('/preloader'))
+  .catch(() => router.push('/login'))
   .then(bootstrapView)
 
 function bootstrapView() {
@@ -19,16 +21,17 @@ function bootstrapView() {
 }
 
 function restoreSession() {
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     const session = getSession('session')
 
     if (!session) {
-      return resolve();
+      return reject();
     }
 
     store
       .dispatch('session/restore', session)
-      .then(resolve)
+      .then(() => router.push('/'))
 
+    resolve()
   })
 }
