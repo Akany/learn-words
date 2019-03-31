@@ -19,10 +19,15 @@ const restoreRoute = route.post('/api/auth/restore', async ctx => {
   }
 })
 
+const storeWord = route.post('/api/word', async ctx => {
+  ctx.body = {}
+})
+
 app.use(bodyParse());
 
 app.use(authRoute)
 app.use(restoreRoute)
+app.use(storeWord)
 
 app.use(ctx => {
   ctx.body = 'Works'
