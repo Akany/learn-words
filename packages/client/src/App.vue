@@ -19,6 +19,10 @@
   background: $primary;
   color: white;
   width: 100%;
+
+  &:disabled {
+    background: #9dd5ec;
+  }
 }
 
 .form-row {
