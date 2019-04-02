@@ -1,7 +1,7 @@
 {
-  "name": "book-words",
+  "name": "learn-words",
   "version": "0.0.1",
-  "description": "learn words",
+  "description": "Small app to store words and run a quiz",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

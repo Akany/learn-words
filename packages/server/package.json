@@ -1,7 +1,7 @@
 {
-  "name": "server",
+  "name": "@learn-words/server",
   "version": "1.0.0",
-  "description": "books word server",
+  "description": "Learn words server",
   "main": "main.js",
   "scripts": {
     "start": "node main.js"
