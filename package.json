@@ -4,7 +4,9 @@
   "description": "learn words",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev-server": "lerna run --stream --scope server start",
+    "dev-client": "lerna run --stream --scope client serve"
   },
   "author": "",
   "license": "ISC",
