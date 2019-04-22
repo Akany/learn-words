@@ -8,29 +8,29 @@ const authRoute = route.post('/api/auth', ctx => {
     name: ctx.request.body.email,
     token: ctx.request.body.email,
     playerId: ctx.request.body.email
-  }
-})
+  };
+});
 
 const restoreRoute = route.post('/api/auth/restore', async ctx => {
   ctx.body = {
     name: ctx.request.body.playerId,
     token: ctx.request.body.token,
     playerId: ctx.request.body.playerId
-  }
-})
+  };
+});
 
 const storeWord = route.post('/api/word', async ctx => {
-  ctx.body = {}
-})
+  ctx.body = {};
+});
 
 app.use(bodyParse());
 
-app.use(authRoute)
-app.use(restoreRoute)
-app.use(storeWord)
+app.use(authRoute);
+app.use(restoreRoute);
+app.use(storeWord);
 
 app.use(ctx => {
-  ctx.body = 'Works'
+  ctx.body = 'Works';
 });
 
-app.listen(3010)
+app.listen(3010);
