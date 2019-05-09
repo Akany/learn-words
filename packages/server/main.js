@@ -1,36 +1,49 @@
-const Koa = require('koa')
-const route = require('koa-route')
-const app = new Koa()
-const bodyParse = require('koa-bodyparser')
+import Koa from 'koa';
+import route from 'koa-route';
+import bodyParse from 'koa-bodyparser';
+import mongodb from 'mongodb';
 
-const authRoute = route.post('/api/auth', ctx => {
-  ctx.body = {
-    name: ctx.request.body.email,
-    token: ctx.request.body.email,
-    playerId: ctx.request.body.email
-  };
-});
+const app = new Koa();
+const url = 'mongodb://localhost:27017';
 
-const restoreRoute = route.post('/api/auth/restore', async ctx => {
-  ctx.body = {
-    name: ctx.request.body.playerId,
-    token: ctx.request.body.token,
-    playerId: ctx.request.body.playerId
-  };
-});
+import {authRoute, restoreRoute} from './routes/user.js';
 
 const storeWord = route.post('/api/word', async ctx => {
   ctx.body = {};
 });
 
-app.use(bodyParse());
+connectDatabase(url, 'book-words')
+  .then((database) => {
+    app.use(bodyParse());
 
-app.use(authRoute);
-app.use(restoreRoute);
-app.use(storeWord);
+    app.use(async (ctx, next) => {
+      ctx.db = database;
 
-app.use(ctx => {
-  ctx.body = 'Works';
-});
+      return await next();
+    });
 
-app.listen(3010);
+    const userDB = database.collection('user');
+    const sessionDB = database.collection('session');
+
+    app.use(authRoute(userDB, sessionDB));
+    app.use(restoreRoute(userDB, sessionDB));
+    app.use(storeWord);
+
+    app.use(ctx => {
+      ctx.body = 'Works';
+    });
+
+    app.listen(3010);
+  });
+
+function connectDatabase(url, name) {
+  return new Promise((resolve, reject) => {
+    mongodb.MongoClient.connect(url, (err, db) => {
+      if (err) {
+        reject(err);
+      }
+
+      resolve(db.db(name));
+    });
+  });
+}

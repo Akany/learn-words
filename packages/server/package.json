@@ -3,18 +3,21 @@
   "version": "1.0.0",
   "description": "Learn words server",
   "main": "main.js",
+  "type": "module",
   "scripts": {
     "start": "node main.js",
-    "dev": "nodemon main.js"
+    "dev": "nodemon --experimental-modules main.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",
-    "koa-route": "^3.2.0"
+    "koa-route": "^3.2.0",
+    "mongodb": "^3.2.3"
   },
   "devDependencies": {
+    "md5": "^2.2.1",
     "nodemon": "^1.18.11"
   }
 }

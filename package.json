@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev-server": "lerna run --stream --scope server start",
-    "dev-client": "lerna run --stream --scope client serve"
+    "dev-server": "lerna run --stream --scope @learn-words/server dev",
+    "dev-client": "lerna run --stream --scope @learn-words/client serve"
   },
   "author": "",
   "license": "ISC",
