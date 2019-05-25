@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node main.js",
-    "dev": "nodemon --experimental-modules main.js"
+    "dev": "nodemon --inspect --experimental-modules main.js"
   },
   "author": "",
   "license": "ISC",

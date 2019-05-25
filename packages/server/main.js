@@ -1,5 +1,4 @@
 import Koa from 'koa';
-import route from 'koa-route';
 import bodyParse from 'koa-bodyparser';
 import mongodb from 'mongodb';
 
@@ -7,10 +6,8 @@ const app = new Koa();
 const url = 'mongodb://localhost:27017';
 
 import {authRoute, restoreRoute} from './routes/user.js';
-
-const storeWord = route.post('/api/word', async ctx => {
-  ctx.body = {};
-});
+import storeWord from './routes/word.js';
+import getWords from './routes/word-get.js';
 
 connectDatabase(url, 'book-words')
   .then((database) => {
@@ -24,10 +21,12 @@ connectDatabase(url, 'book-words')
 
     const userDB = database.collection('user');
     const sessionDB = database.collection('session');
+    const wordDB = database.collection('word');
 
     app.use(authRoute(userDB, sessionDB));
     app.use(restoreRoute(userDB, sessionDB));
-    app.use(storeWord);
+    app.use(storeWord(wordDB, userDB, sessionDB));
+    app.use(getWords(wordDB, userDB, sessionDB));
 
     app.use(ctx => {
       ctx.body = 'Works';

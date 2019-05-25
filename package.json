@@ -11,6 +11,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "lerna": "^3.13.1"
-  }
+    "lerna": "^3.13.1",
+    "ndb": "^1.0.44"
+  },
+  "dependencies": {}
 }
