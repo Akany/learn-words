@@ -11,6 +11,7 @@ const PORT = process.env.PORT;
 const url = process.env.DB;
 
 import {authRoute, restoreRoute} from './routes/user.js';
+import userRegister from './routes/user-register.js';
 import storeWord from './routes/word.js';
 import getWords from './routes/word-get.js';
 
@@ -29,6 +30,7 @@ connectDatabase(url, 'book-words')
     const wordDB = database.collection('word');
 
     app.use(authRoute(userDB, sessionDB));
+    app.use(userRegister(userDB, sessionDB));
     app.use(restoreRoute(userDB, sessionDB));
     app.use(storeWord(wordDB, userDB, sessionDB));
     app.use(getWords(wordDB, userDB, sessionDB));
@@ -42,7 +44,7 @@ connectDatabase(url, 'book-words')
 
 function connectDatabase(url, name) {
   return new Promise((resolve, reject) => {
-    mongodb.MongoClient.connect(url, (err, db) => {
+    mongodb.MongoClient.connect(url, { useNewUrlParser: true }, (err, db) => {
       if (err) {
         reject(err);
       }
