@@ -2,8 +2,13 @@ import Koa from 'koa';
 import bodyParse from 'koa-bodyparser';
 import mongodb from 'mongodb';
 
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 const app = new Koa();
-const url = 'mongodb://localhost:27017';
+const PORT = process.env.PORT;
+const url = process.env.DB;
 
 import {authRoute, restoreRoute} from './routes/user.js';
 import storeWord from './routes/word.js';
